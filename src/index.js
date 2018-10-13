@@ -1,23 +1,23 @@
-import {default as button } from './button/index.js';
-import {default as control } from './control-mixin/index.js';
-import {default as controlView } from './control-view/index.js';
-import { EditProperty, EditModel } from './edit-schema/index.js';
-import { default as input } from './input/index.js';
-import { default as promiseBar } from './promise-bar/index.js';
+import {default as Button, buttonMixin } from './button/index.js';
+import {default as controlMixin } from './control-mixin/index.js';
+import {default as ControlView, controlViewMixin } from './control-view/index.js';
+import { EditProperty, editPropertyMixin, EditModel, editModelMixin } from './edit-schema/index.js';
+import { default as Input, inputMixin } from './input/index.js';
+import { default as PromiseBar, promiseBarMixin } from './promise-bar/index.js';
 export {
-	button,
-	control,
-	controlView,
-	EditProperty, EditModel,
-	input,
-	promiseBar
+	Button, buttonMixin,
+	controlMixin,
+	ControlView, controlViewMixin,
+	EditProperty, editPropertyMixin, EditModel, editModelMixin,
+	Input, inputMixin,
+	PromiseBar, promiseBarMixin
 };
 
 export default {
-	button,
-	control,
-	controlView,
-	EditProperty, EditModel,
-	input,
-	promiseBar
+	Button, buttonMixin,
+	controlMixin,
+	ControlView, controlViewMixin,
+	EditProperty, editPropertyMixin, EditModel, editModelMixin,
+	Input, inputMixin,
+	PromiseBar, promiseBarMixin
 };
