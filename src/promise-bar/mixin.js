@@ -1,7 +1,7 @@
 import _ from 'underscore';
 
 import { CollectionView, View } from 'backbone.marionette';
-import { isCollectionView } from 'bbmn-core';
+import { isClass } from 'bbmn-core';
 import { cssClassModifiers } from 'bbmn-mixins';
 import buttonMixin from '../button/index.js';
 
@@ -10,7 +10,7 @@ export default Base => {
 		Base = CollectionView;
 	}
 
-	if(!isCollectionView(Base)){
+	if(!isClass(Base, CollectionView)){
 		throw new Error('promiseBar mixin can be applied only on CollectionView');
 	}
 
