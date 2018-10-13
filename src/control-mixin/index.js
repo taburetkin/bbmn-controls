@@ -1,6 +1,6 @@
 
 import _ from 'underscore';
-import { flat, unflat, setByPath, getByPath, compareObjects, betterResult, takeValue } from 'bbmn-utils';
+import { flat, unflat, setByPath, getByPath, compareObjects, betterResult, takeFirst } from 'bbmn-utils';
 
 function getTriggerMethod(context){
 	if(!context) { return () => {}; }
@@ -70,10 +70,10 @@ export default Base => Base.extend({
 		if (this._controlInitialized) { return; }
 
 		this._cntrl = {};
-		let name = takeValue('controlName', options, this) || 'control';
+		let name = takeFirst('controlName', options, this) || 'control';
 		this._cntrl.name = name;
 
-		let value = takeValue('value', options, this);
+		let value = takeFirst('value', options, this);
 		value = this._clone(value);
 		this.initControlValue(value);
 		this.initParentControl(options);
@@ -83,7 +83,7 @@ export default Base => Base.extend({
 		this._controlInitialized = true;
 	},
 	initParentControl(options){
-		let parent = takeValue('proxyTo', options, this) || takeValue('parentControl', options, this);
+		let parent = takeFirst('proxyTo', options, this) || takeFirst('parentControl', options, this);
 		this.setParentControl(parent);
 	},
 	setParentControl(parent){
