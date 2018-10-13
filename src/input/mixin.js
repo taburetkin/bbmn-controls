@@ -7,9 +7,7 @@ import setInputEvents from './set-events.js';
 
 //import { convertString as convert, getOption } from '../../../utils/index.js';
 export default Base => {
-
 	let Mixin = Base.ControlMixin ? Base : ControlMixin(Base);
-
 	return Mixin.extend({
 		constructor(opts){
 			

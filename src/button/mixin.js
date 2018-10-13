@@ -5,7 +5,7 @@ export default Base => {
 	if (Base == null) {
 		Base = View;
 	}
-	Base.extend({
+	return Base.extend({
 
 		triggerNameEvent: true,
 		stopEvent: true,

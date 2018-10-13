@@ -13,11 +13,12 @@ export {
 	PromiseBar, promiseBarMixin
 };
 
+
 export default {
 	Button, buttonMixin,
 	controlMixin,
 	ControlView, controlViewMixin,
 	EditProperty, editPropertyMixin, EditModel, editModelMixin,
 	Input, inputMixin,
-	PromiseBar, promiseBarMixin
+	PromiseBar, promiseBarMixin,
 };

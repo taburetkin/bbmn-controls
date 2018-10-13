@@ -374,7 +374,7 @@ export default Base => Base.extend({
 		handler.apply(this, handlerArguments);
 
 	},
-	
+
 	defaultChildControlEvents:{
 		'change'(controlName, value){
 			let isControlWraper = this.getOption('isControlWrapper');

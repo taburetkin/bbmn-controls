@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import ControlView from '../control-view/index.js';
+import { controlViewMixin } from '../control-view/index.js';
 import common from './common.js';
 import { mix } from 'bbmn-utils';
 import EditProperty from './property.js';
@@ -8,7 +8,7 @@ import { ModelSchema } from 'bbmn-components';
 
 
 export default Base => {
-	let Mixed = mix(Base).with(ControlView, common);
+	let Mixed = mix(Base).with(controlViewMixin, common);
 
 	return Mixed.extend({
 		

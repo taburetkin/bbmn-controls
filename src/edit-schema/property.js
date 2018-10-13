@@ -4,12 +4,12 @@ import { validator, PropertySchema } from 'bbmn-components';
 
 import { mix, buildViewByKey } from 'bbmn-utils';
 
-import ControlView from '../control-view/index.js';
+import { controlViewMixin } from '../control-view/index.js';
 import common from './common.js';
 import { View } from 'backbone.marionette';
 
 export default Base => {
-	const Mixed = mix(Base).with(ControlView, common);
+	const Mixed = mix(Base).with(controlViewMixin, common);
 
 	return Mixed.extend({
 		

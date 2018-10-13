@@ -18,6 +18,10 @@ let rollupGlobals = {
 	'backbone.marionette': 'Mn',
 	'jquery': '$',
 	'underscore': '_',
+	'bbmn-core': 'bbmn',
+	'bbmn-utils': 'bbmn.utils',
+	'bbmn-mixins': 'bbmn.mixins',
+	'bbmn-components': 'bbmn.components',
 };
 
 let testExternals = ['backbone', 'backbone.marionette', 'underscore'];
@@ -37,7 +41,7 @@ let getRollupConfig = (format, babelcfg = babelConfig) => {
 		external: ['jquery','backbone', 'backbone.marionette', 'underscore', 'bbmn-core', 'bbmn-utils', 'bbmn-components', 'bbmn-mixins'],
 		output: {
 			format,
-			name: 'bbmn.utils',
+			name: 'bbmn.controls',
 			'globals': rollupGlobals,
 			exports: 'named',
 		},
