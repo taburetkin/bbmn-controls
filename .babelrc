@@ -1,0 +1,5 @@
+{
+	"presets": ["env"],
+	"ignore": "/node_modules/(?!bbmn)"
+}
+  

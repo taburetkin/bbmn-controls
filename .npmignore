@@ -1,0 +1,15 @@
+.vscode
+coverage
+gulp
+test
+docs
+usage
+.babelrc
+.eslintignore
+.eslintrc.json
+.gitignore
+gulpfile.babel.js
+README.md
+header.md
+yarn.lock
+yarn-error.log
