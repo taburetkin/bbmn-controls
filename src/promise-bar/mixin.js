@@ -2,7 +2,7 @@ import _ from 'underscore';
 
 import { CollectionView, View } from 'backbone.marionette';
 import { isClass } from 'bbmn-core';
-import { cssClassModifiers } from 'bbmn-mixins';
+import { cssClassModifiersMixin } from 'bbmn-mixins';
 import buttonMixin from '../button/index.js';
 
 export default Base => {
@@ -17,7 +17,7 @@ export default Base => {
 	let Mixed = Base;
 
 	if (!Mixed.CssClassModifiersMixin) {
-		Mixed = cssClassModifiers(Mixed);
+		Mixed = cssClassModifiersMixin(Mixed);
 	}
 
 	return Mixed.extend({

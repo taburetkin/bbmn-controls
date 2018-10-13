@@ -1,7 +1,7 @@
 
 //import { isView, isViewClass } from '../../../vendors/helpers.js';
 import _ from 'underscore';
-import { cssClassModifiers, customsMixin } from 'bbmn-mixins';
+import { cssClassModifiersMixin, customsMixin } from 'bbmn-mixins';
 import { buildViewByKey } from 'bbmn-utils';
 import ControlMixin from '../control-mixin/index.js';
 import { CollectionView, View } from 'backbone.marionette';
@@ -29,7 +29,7 @@ export default Base => {
 	}
 
 	if (!Mixed.CssClassModifiersMixin) {
-		Mixed = cssClassModifiers(Mixed);
+		Mixed = cssClassModifiersMixin(Mixed);
 	}
 
 	if (!Mixed.CustomsMixin) {
