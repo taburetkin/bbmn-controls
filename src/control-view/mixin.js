@@ -47,9 +47,6 @@ export default Base => {
 		
 		constructor(){
 			Mixed.apply(this, arguments);
-			if(!this.cssClassModifiers) {
-				this.cssClassModifiers = [];
-			}
 			this._setControlValidInvalidListeners();
 			this.addCssClassModifier('control-wrapper');
 		},
@@ -109,7 +106,7 @@ export default Base => {
 			return this._errorView;
 		},
 		buildErrorView(){
-			return buildViewByKey.call(this, 'errorView');
+			return buildViewByKey(this, 'errorView');
 		},
 
 
@@ -126,7 +123,7 @@ export default Base => {
 			if (!TextView) {
 				buildText = (text, opts) => new View(_.extend({}, opts, { template: () => text }));
 			}
-			return buildViewByKey.call(this, key, { TextView, buildText, options });
+			return buildViewByKey(this, key, { TextView, buildText, options });
 		},
 
 
@@ -148,7 +145,7 @@ export default Base => {
 			}
 
 			let options = this.buildButtonsOptions();
-			let view = buildViewByKey.call(this, 'buttonsView', { options });
+			let view = buildViewByKey(this, 'buttonsView', { options });
 			if (!view) { return; }
 
 			this._buttonsView = view;
@@ -196,7 +193,7 @@ export default Base => {
 		},
 
 		getControlView(){
-			this.control = buildViewByKey.call(this, 'controlView', { options: { parentControl: this, value: this.getControlValue() } });
+			this.control = buildViewByKey(this, 'controlView', { options: { parentControl: this, value: this.getControlValue() } });
 			return this.control;
 		},
 

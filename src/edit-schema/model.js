@@ -6,12 +6,16 @@ import EditProperty from './property.js';
 
 import { ModelSchema } from 'bbmn-components';
 
+import propertyErrorView from './error-view';
 
 export default Base => {
 	let Mixed = mix(Base).with(controlViewMixin, common);
 
 	return Mixed.extend({
-		
+
+		shouldShowError: false,
+		shouldShowPropertyError: true,
+		propertyErrorView,
 		validateOnReady: true,
 		buttonsInFooter: true,
 		isControlWrapper: false,
@@ -47,6 +51,10 @@ export default Base => {
 				allValues: this.getControlValue({ notValidated: true }),
 				propertyLabelAsHeader: this.getOption('propertyLabelAsHeader')
 			};
+			if(this.getOption('shouldShowPropertyError')) {
+				def.shouldShowError = true;
+				def.errorView = this.getOption('propertyErrorView');
+			}
 			let options = this.getEditPropertyOptions(def);
 			return this.createEditProperty(EditProperty, options);
 		},

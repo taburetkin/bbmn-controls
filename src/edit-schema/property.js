@@ -13,7 +13,7 @@ export default Base => {
 
 	return Mixed.extend({
 		
-		shouldShowError: true,
+		shouldShowError: false,
 		className:'edit-model-property',
 		schemaClass: PropertySchema,
 		debounceChildControlEvents: 0,
@@ -38,7 +38,7 @@ export default Base => {
 			if (!TextView) {
 				buildText = (text, opts) => new View(_.extend({}, opts, { template: () => text }));
 			}
-			let view = buildViewByKey.call(this, 'header', { TextView, buildText, options: { tagName: 'header' } });
+			let view = buildViewByKey(this, 'header', { TextView, buildText, options: { tagName: 'header' } });
 			if(view) { return view; }
 
 			if(this.getOption('propertyLabelAsHeader')) {
