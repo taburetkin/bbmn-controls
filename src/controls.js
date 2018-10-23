@@ -11,9 +11,15 @@ function guesControl(arg) {
 		return;
 	}
 	let control = getControlByName(arg.control);
+	
 	if(!control){
 		control = getControlByName(arg.type);
 	}
+
+	if (!control && !!arg.sourceValues) {
+		control = getControlByName('select');
+	}
+
 	return control;
 }
 
@@ -26,6 +32,9 @@ function getControlBySchema(schema){
 	let control = getControlByName(value.control);
 	if (!control) {
 		control = getControlByName(value.type);		
+	}
+	if (!control && !!value.sourceValues) {
+		control = getControlByName('select');
 	}
 	return control;
 }
