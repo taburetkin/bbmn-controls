@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import { isClass } from 'bbmn-core';
+//import { isClass } from 'bbmn-core';
 import { PropertySchema } from 'bbmn-components';
 
 const controls = {
@@ -11,7 +11,7 @@ function guesControl(arg) {
 		return;
 	}
 	let control = getControlByName(arg.control);
-	
+
 	if(!control){
 		control = getControlByName(arg.type);
 	}
@@ -43,7 +43,7 @@ function getControl(arg){
 	let control;
 	if(_.isString(arg)){
 		control = getControlByName(arg);
-	} else if(isClass(arg, PropertySchema)) {
+	} else if(arg instanceof PropertySchema) {
 		control = getControlBySchema(arg);
 	} else {
 		control = guesControl(arg);
