@@ -1,6 +1,6 @@
 
 import _ from 'underscore';
-import { flat, unflat, setByPath, getByPath, compareObjects, betterResult, takeFirst } from 'bbmn-utils';
+import { clone, setByPath, getByPath, compareObjects, betterResult, takeFirst } from 'bbmn-utils';
 
 function getTriggerMethod(context){
 	if(!context) { return () => {}; }
@@ -413,7 +413,7 @@ export default Base => Base.extend({
 		if(_.isArray(value))
 			return value.slice(0);
 		else if(_.isObject(value)) {
-			return unflat(flat(value));
+			return clone(value);
 		} else
 			return value;
 	},

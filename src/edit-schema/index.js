@@ -1,26 +1,22 @@
-import _ from 'underscore';
 import editPropertyMixin from './property.js';
 import editModelMixin from './model.js';
 import { mix } from 'bbmn-utils';
 import ControlView from '../control-view';
-import Input from '../input';
-import build from './build-control';
+import { getControl } from '../controls';
 
 const BaseEditProperty = mix(ControlView).with(editPropertyMixin);
 
 const EditProperty = BaseEditProperty.extend({
-	buildPropertyView(editOptions = {}){
-		
-		let control = build(editOptions);
-		if (control) { return control; }
-
-		let options = _.extend({}, editOptions, {
-			inputAttributes:{
-				name: editOptions.name,
-			},
-		});
-
-		return new Input(options);
+	getEditControl(){
+		return getControl(this.getSchema());
+	},
+	getEditControlOptions(editOptions){
+		return editOptions;
+	},
+	buildPropertyView(editOptions){
+		let Control = this.getEditControl();
+		let options = this.getEditControlOptions(editOptions);
+		return new Control(options);
 	},
 });
 

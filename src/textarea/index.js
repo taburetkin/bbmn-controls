@@ -4,6 +4,7 @@ import { View } from '../config';
 import Control from '../control-view';
 import { camelCase } from 'bbmn-utils';
 import { inputMixin } from '../input';
+import { defineControl } from '../controls';
 
 const TextArea = inputMixin(View).extend({
 	doneOnEnter: false,
@@ -19,7 +20,7 @@ const TextArea = inputMixin(View).extend({
 
 const inputEvents = ['focus','blur','input','keyup','keydown'];
 
-export default Control.extend({
+const TextAreaControl = Control.extend({
 	
 	constructor(){
 		Control.apply(this, arguments);
@@ -51,3 +52,8 @@ export default Control.extend({
 		return delegatedHandlers;
 	}
 });
+
+export default TextAreaControl;
+
+defineControl('bigtext', TextArea);
+defineControl('textarea', TextArea);
