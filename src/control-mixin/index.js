@@ -1,6 +1,6 @@
 
 import _ from 'underscore';
-import { clone, setByPath, getByPath, compareObjects, betterResult, takeFirst, mergeOptions } from 'bbmn-utils';
+import { clone, setByPath, getByPath, compareObjects, betterResult, takeFirst } from 'bbmn-utils';
 
 function getTriggerMethod(context){
 	if(!context) { return () => {}; }
@@ -30,7 +30,7 @@ export default Base => Base.extend({
 				this.validate().catch(() => {});
 			});
 		}
-		this.editOptions = this.getOption('editOptions') || {};
+		//this.editOptions = this.getOption('editOptions') || {};
 		this.valueOptions = this.getOption('valueOptions') || {};
 	},
 
