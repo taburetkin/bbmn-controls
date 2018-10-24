@@ -5,6 +5,7 @@ import { EditProperty, editPropertyMixin, EditModel, editModelMixin } from './ed
 import { default as Input, inputMixin } from './input/index.js';
 import { default as PromiseBar, promiseBarMixin } from './promise-bar/index.js';
 import { controls, defineControl, getControl } from './controls';
+import { default as SelectControl, selectableViewMixin } from './select';
 export {
 	Button, buttonMixin,
 	controlMixin,
@@ -13,6 +14,7 @@ export {
 	Input, inputMixin,
 	PromiseBar, promiseBarMixin,
 	controls, defineControl, getControl,
+	SelectControl, selectableViewMixin
 };
 
 
@@ -24,4 +26,5 @@ export default {
 	Input, inputMixin,
 	PromiseBar, promiseBarMixin,
 	controls, defineControl, getControl,
+	SelectControl, selectableViewMixin
 };
