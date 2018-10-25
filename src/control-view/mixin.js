@@ -73,7 +73,8 @@ export default Base => {
 				customs.push(...this._customs);
 			}
 			customs = this.injectSystemViews(customs);
-			return this._prepareCustoms(customs);
+			return customs; 
+			//this._prepareCustoms(customs);
 		},
 
 		_setupCustom(view){

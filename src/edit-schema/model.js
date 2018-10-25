@@ -31,7 +31,7 @@ export default Base => {
 			customs.push(...this.getPropertiesViews());
 			customs.push(...this._customs);
 			customs = this.injectSystemViews(customs);
-			return this._prepareCustoms(customs);
+			return customs;
 		},
 		getPropertiesViews(){
 			let modelSchema = this.getSchema();
