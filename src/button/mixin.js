@@ -16,28 +16,33 @@ export default Base => {
 		},
 		tagName:'button',
 		template: _.template('<i></i><span><%= text %></span><i></i>'),
-		events:{
-			'click'(e) {
-				let stop = this.getOption('stopEvent');
-				if (stop) {
-					e.stopPropagation();
-					e.preventDefault();
-				}
-				this.beforeClick().then(
-					data => {
-						this.triggerMethod('click', data, e, this);
-						if (this.name) {
-							this.triggerMethod('click:'+this.name, data, e, this);
-						}
-					},
-					error => {
-						this.triggerMethod('click:fail', error, this.name, e, this);
-						if (this.name) {
-							this.triggerMethod('click:'+this.name+':fail', error, e, this);
-						}
-					}
-				);
+		events(){
+			if(this.getOption('noevent')){
+				return;
 			}
+			return {
+				'click'(e) {
+					let stop = this.getOption('stopEvent');
+					if (stop) {
+						e.stopPropagation();
+						e.preventDefault();
+					}
+					this.beforeClick().then(
+						data => {
+							this.triggerMethod('click', data, e, this);
+							if (this.name) {
+								this.triggerMethod('click:'+this.name, data, e, this);
+							}
+						},
+						error => {
+							this.triggerMethod('click:fail', error, this.name, e, this);
+							if (this.name) {
+								this.triggerMethod('click:'+this.name+':fail', error, e, this);
+							}
+						}
+					);
+				}
+			};
 		},
 		beforeClick(){
 			let result = this.triggerMethod('before:click');
