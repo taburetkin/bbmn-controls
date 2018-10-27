@@ -22,11 +22,8 @@ const SelectControl = ControlView.extend({
 		this._fixChildOptions(this.childViewOptions);
 	},
 	_initSelector(){
-		this.selector = new Selector({
-			value: this.getControlValue(),
-			source: this.getSource(),
-			multiple: this.isMultiple(),
-		});
+		let selectorOptions = this._getSelectorOptions();
+		this.selector = new Selector(selectorOptions);
 
 		this.listenTo(this.selector, 'change', changes => {
 			_.invoke(changes.selected, 'trigger', 'change');
@@ -34,6 +31,27 @@ const SelectControl = ControlView.extend({
 			this.setControlValue(this.selector.getValue());
 		});
 	},
+	_getSelectorOptions(){
+		let source = this.getSource();
+		let extractValue;
+		let type = this.valueOptions.type;
+		if (type == 'boolean') {
+			source = _.map(source, (value, ind) => ({id: toBool(ind), value }));
+			extractValue = model => model.id;
+		}
+
+		let opts = {
+			value: this.getControlValue(),
+			source,
+			multiple: this.isMultiple(),
+		};
+		if(extractValue) {
+			opts.extractValue = extractValue;
+		}
+
+		return opts;
+	},
+
 
 	_fixChildView(childView){
 		if (!childView) {
@@ -89,11 +107,6 @@ const SelectControl = ControlView.extend({
 	},
 	getSource(){
 		let src = this.valueOptions.sourceValues;
-		let type = this.valueOptions.type;
-		if (type == 'boolean') {
-			let models = _.map(src, (value, ind) => ({id: toBool(ind), value }));
-			return new Collection(models);
-		}
 		return src;
 	},
 	childViewEvents:{
