@@ -7,6 +7,7 @@ import { mix, buildViewByKey } from 'bbmn-utils';
 import { controlViewMixin } from '../control-view/index.js';
 import common from './common.js';
 import { View } from 'backbone.marionette';
+import errorView from './error-view';
 
 export default Base => {
 	const Mixed = mix(Base).with(controlViewMixin, common);
@@ -14,6 +15,7 @@ export default Base => {
 	return Mixed.extend({
 		
 		shouldShowError: false,
+		errorView,
 		className:'edit-model-property',
 		schemaClass: PropertySchema,
 		debounceChildControlEvents: 0,

@@ -3,6 +3,7 @@ import editModelMixin from './model.js';
 import { mix } from 'bbmn-utils';
 import ControlView from '../control-view';
 import { getControl } from '../controls';
+import SchemaErrorView from './error-view';
 
 const BaseEditProperty = mix(ControlView).with(editPropertyMixin);
 
@@ -28,5 +29,6 @@ export {
 	editPropertyMixin,
 	editModelMixin,
 	EditProperty,
-	EditModel
+	EditModel,
+	SchemaErrorView
 };
