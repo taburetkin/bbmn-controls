@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import { ControlView } from '../control-view';
 import { Selector } from 'bbmn-components';
-import { isViewClass, convertString } from 'bbmn-utils';
+import { isViewClass, convertString, toBool } from 'bbmn-utils';
 import DefaultChildView from './childview';
 import fixChildView from './fix-childview';
 import { defineControl } from '../controls';
@@ -69,7 +69,12 @@ const SelectControl = ControlView.extend({
 		return this.valueOptions.multiple === true;
 	},
 	prepareValueBeforeSet(value){
-		if(_.isString(value)){
+		let type = this.valueOptions.type;
+		if (type == 'text') {
+			return value != null ? value.toString() : value;
+		} else if (type == 'boolean') {
+			return toBool(value);
+		} else if(_.isString(value)){
 			return convertString(value, this.valueOptions.type);
 		} else if(_.isArray(value)) {
 			if(this.valueOptions.type == 'enum') {
@@ -82,7 +87,12 @@ const SelectControl = ControlView.extend({
 		}
 	},
 	getSource(){
-		return this.valueOptions.sourceValues;
+		let src = this.valueOptions.sourceValues;
+		let type = this.valueOptions.type;
+		if (type == 'boolean') {
+			return _.map(src, (value, ind) => ({id: toBool(ind), value }));
+		}
+		return src;
 	},
 	childViewEvents:{
 		'toggle:select'(view, event){
