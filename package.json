@@ -7,7 +7,7 @@
     "marionette",
     "bbmn"
   ],
-  "main": "lib/umd/index.js",
+  "main": "lib/src/index.js",
   "module": "lib/src/index.js",
   "browser": "lib/umd/index.js",
   "repository": "https://github.com/taburetkin/bbmn-controls.git",
