@@ -8,7 +8,7 @@
     "bbmn"
   ],
   "main": "lib/umd/index.js",
-  "module": "lib/es/index.js",
+  "module": "lib/src/index.js",
   "browser": "lib/umd/index.js",
   "repository": "https://github.com/taburetkin/bbmn-controls.git",
   "author": "dimtabu <dima.taburetkin@gmail.com>",

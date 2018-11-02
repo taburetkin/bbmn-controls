@@ -1,6 +1,6 @@
 import getOption from './_get-option.js';
 export default function(eventContext) {
-	let { context } = eventContext;
+	let { context, event } = eventContext;
 
 	if (context.triggerMethod('blur', event) === false) { return; }
 
