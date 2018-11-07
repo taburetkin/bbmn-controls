@@ -107,6 +107,9 @@ const SelectControl = ControlView.extend({
 	},
 	getSource(){
 		let src = this.valueOptions.sourceValues;
+		if(_.isFunction(src)){
+			src = src();
+		}
 		return src;
 	},
 	childViewEvents:{
