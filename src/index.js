@@ -6,6 +6,7 @@ import { default as Input, inputMixin } from './input/index.js';
 import { default as PromiseBar, promiseBarMixin } from './promise-bar/index.js';
 import { controls, defineControl, getControl } from './controls';
 import { default as SelectControl, selectableViewMixin } from './select';
+import BooleanSwitchControl from './boolean-switch';
 export {
 	Button, buttonMixin,
 	controlMixin,
@@ -14,7 +15,8 @@ export {
 	Input, inputMixin,
 	PromiseBar, promiseBarMixin,
 	controls, defineControl, getControl,
-	SelectControl, selectableViewMixin
+	SelectControl, selectableViewMixin,
+	BooleanSwitchControl
 };
 
 
@@ -26,5 +28,6 @@ export default {
 	Input, inputMixin,
 	PromiseBar, promiseBarMixin,
 	controls, defineControl, getControl,
-	SelectControl, selectableViewMixin
+	SelectControl, selectableViewMixin,
+	BooleanSwitchControl
 };

@@ -117,10 +117,14 @@ export default Base => Base.extend({
 		let valueKey = notValidated ? 'notValidated' : 'value';
 		let value = this._cntrl[valueKey];
 		if (key != null) {
-			return getByPath(value, key);
+			value = getByPath(value, key);
 		} else {
-			return clone ? this._clone(value) : value;
+			value = clone ? this._clone(value) : value;
 		}
+		if (_.isFunction(options.transform)){
+			value = options.transform.call(this, value);
+		}
+		return value;
 	},
 
 	setControlValue(value, options = {}){
