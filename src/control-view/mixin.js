@@ -177,23 +177,32 @@ export default Base => {
 			return button;
 		},
 		settleButtonsListeners(buttonsView){
-			this.on('control:done',() => {
-				this.triggerMethod('resolve', this.getControlValue());
+			this.on('control:done',(value) => {
+				this._fulfill('resolve', value);
+				//this.triggerMethod('resolve', value);
 			});
 			this.listenTo(buttonsView, {
 				'resolve'(){
-					this.triggerMethod('resolve', this.getControlValue());
+					let value = this.getControlValue();
+					this._fulfill('resolve', value);
+					//this.triggerMethod('resolve', this.getControlValue());
 				},
 				'reject'(){
-					this.triggerMethod('reject');
+					this._fulfill('reject');
+					//this.triggerMethod('reject');
 				},
 				'reject:soft'(){
-					this.triggerMethod('reject:soft');
+					this._fulfill('reject:soft');
+					//this.triggerMethod('reject:soft');
 				},
 				'reject:hard'(){
-					this.triggerMethod('reject:hard');
+					this._fulfill('reject:hard');
+					//this.triggerMethod('reject:hard');
 				},
 			});
+		},
+		_fulfill(type, ...rest){
+			this.triggerMethod(type, ...rest);
 		},
 
 		getControlView(){

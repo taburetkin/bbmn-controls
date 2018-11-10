@@ -30,11 +30,11 @@ export default Base => Base.extend({
 				this.validate().catch(() => {});
 			});
 		}
-		if (this.getOption('destroyOnDone')) {
-			this.once('control:done', () => {
-				this.destroy();
-			});
-		}
+		// if (this.getOption('destroyOnDone')) {
+		// 	this.once('control:done', () => {
+		// 		this.destroy();
+		// 	});
+		// }
 		//this.editOptions = this.getOption('editOptions') || {};
 		this.valueOptions = this.getOption('valueOptions') || {};
 	},
@@ -455,7 +455,7 @@ export default Base => Base.extend({
 			let parentTrigger = getTriggerMethod(parent);
 			parentTrigger.call(parent, namedEvent, ...args);
 		}
-		
+
 		trigger.call(this, event, ...args);
 	},
 	makeControlReady(){
