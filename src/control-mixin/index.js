@@ -349,7 +349,6 @@ export default Base => Base.extend({
 	handleChildControlEvent(event, controlName, ...args) {
 		let childEvent = controlName + ':' + event;
 		let trigger = getTriggerMethod(this);
-		trigger.call(this, childEvent, ...args);
 
 		let cce = this.getOption('childControlEvents', { args: [this] }) || {};
 		let def = this.defaultChildControlEvents || {};
@@ -371,6 +370,8 @@ export default Base => Base.extend({
 			handler = defHandler;
 			handlerArguments = [controlName, ...args];
 		} else {
+			
+			trigger.call(this, childEvent, ...args);
 			return;
 		}
 		
@@ -383,7 +384,7 @@ export default Base => Base.extend({
 		}
 
 		handler.apply(this, handlerArguments);
-
+		trigger.call(this, childEvent, ...args);
 	},
 
 	defaultChildControlEvents:{
