@@ -445,18 +445,18 @@ export default Base => Base.extend({
 		let namedEvent = controlName + ':' + name;
 
 		let trigger = getTriggerMethod(this);
-		
-		trigger.call(this, event, ...args);
-
 		let parent = this.getParentControl();
+		
 		if (stopPropagation || !parent) { return; }
+
 		if (_.isFunction(parent.handleChildControlEvent)) {
 			parent.handleChildControlEvent(name, controlName, ...args);
 		} else {
 			let parentTrigger = getTriggerMethod(parent);
 			parentTrigger.call(parent, namedEvent, ...args);
 		}
-
+		
+		trigger.call(this, event, ...args);
 	},
 	makeControlReady(){
 		let trigger = getTriggerMethod(this);
