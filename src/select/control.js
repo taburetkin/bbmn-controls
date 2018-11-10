@@ -39,9 +39,12 @@ const SelectControl = ControlView.extend({
 			source = _.map(source, (value, ind) => ({id: toBool(ind), value }));
 			extractValue = model => model.id;
 		}
-
+		let value = this.getControlValue();
+		if (this.isMultiple() && type === 'enum' && _.isString(value)) {
+			value = value.split(/\s*,\s*/g);
+		}
 		let opts = {
-			value: this.getControlValue(),
+			value,
 			source,
 			multiple: this.isMultiple(),
 		};
