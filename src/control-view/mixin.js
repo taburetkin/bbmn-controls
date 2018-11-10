@@ -177,6 +177,9 @@ export default Base => {
 			return button;
 		},
 		settleButtonsListeners(buttonsView){
+			this.on('control:done',() => {
+				this.triggerMethod('resolve', this.getControlValue());
+			});
 			this.listenTo(buttonsView, {
 				'resolve'(){
 					this.triggerMethod('resolve', this.getControlValue());
