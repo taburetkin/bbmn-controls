@@ -10,6 +10,7 @@ import { defineControl } from '../controls';
 const SelectControl = ControlView.extend({
 	className: 'regular-select',
 	renderCollection: true,
+	doneOnSelect: true,
 	cssClassModifiers:[
 		'select-control',
 		(m,v) => v.isMultiple() ? 'multiple' : '',
@@ -29,6 +30,9 @@ const SelectControl = ControlView.extend({
 			_.invoke(changes.selected, 'trigger', 'change');
 			_.invoke(changes.unselected, 'trigger', 'change');
 			this.setControlValue(this.selector.getValue());
+			if (!this.isMultiple() && this.getOption('doneOnSelect')) {
+				this.controlDone();
+			}			
 		});
 	},
 	_getSelectorOptions(){
@@ -125,9 +129,7 @@ const SelectControl = ControlView.extend({
 				delete this.lastClickedModel;
 				this.selector.toggleRange(view.model, lastclicked);
 			}
-			if (!this.isMultiple() && this.getOption('doneOnSelect')) {
-				this.controlDone();
-			}
+
 		}
 	}
 });
