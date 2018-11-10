@@ -125,6 +125,9 @@ const SelectControl = ControlView.extend({
 				delete this.lastClickedModel;
 				this.selector.toggleRange(view.model, lastclicked);
 			}
+			if (!this.isMultiple() && this.getOption('doneOnSelect')) {
+				this.controlDone();
+			}
 		}
 	}
 });
