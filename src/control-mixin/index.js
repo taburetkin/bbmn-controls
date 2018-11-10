@@ -395,9 +395,11 @@ export default Base => Base.extend({
 		'done'(controlName, value){
 			let isControlWraper = this.getOption('isControlWrapper');
 			isControlWraper && (controlName = undefined);
-			this.setControlValue(value, { key: controlName, skipChildValidate: controlName });
-			if(isControlWraper) {
-				this.controlDone();
+			let setPromise = this.setControlValue(value, { key: controlName, skipChildValidate: controlName });
+			if (isControlWraper) {
+				setPromise.then(() => {
+					this.controlDone();
+				});
 			}
 		},
 		'invalid'(controlName, value, error){
