@@ -29,9 +29,12 @@ const SelectControl = ControlView.extend({
 		this.listenTo(this.selector, 'change', changes => {
 			_.invoke(changes.selected, 'trigger', 'change');
 			_.invoke(changes.unselected, 'trigger', 'change');
-			this.setControlValue(this.selector.getValue());
+			let setPromise = this.setControlValue(this.selector.getValue());
+
 			if (!this.isMultiple() && this.getOption('doneOnSelect')) {
-				this.controlDone();
+				setPromise.then(() => {
+					this.controlDone();
+				});
 			}			
 		});
 	},
