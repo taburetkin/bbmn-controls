@@ -383,8 +383,13 @@ export default Base => Base.extend({
 			handler = dcce[handlerName];
 		}
 
-		handler.apply(this, handlerArguments);
-		trigger.call(this, childEvent, ...args);
+		let handlerResult = handler.apply(this, handlerArguments);
+		if(handlerResult && handlerResult.then) {
+			handlerResult.then(() => {
+				trigger.call(this, childEvent, ...args);
+			});
+		}
+		
 	},
 
 	defaultChildControlEvents:{
@@ -398,10 +403,12 @@ export default Base => Base.extend({
 			isControlWraper && (controlName = undefined);
 			let setPromise = this.setControlValue(value, { key: controlName, skipChildValidate: controlName });
 			if (isControlWraper) {
-				setPromise.then(() => {
+				setPromise = setPromise.then(() => {
 					this.controlDone();
+					return Promise.resolve();
 				});
 			}
+			return setPromise;
 		},
 		'invalid'(controlName, value, error){
 			if(this.getOption('isControlWrapper')){
