@@ -30,12 +30,7 @@ export default Base => Base.extend({
 				this.validate().catch(() => {});
 			});
 		}
-		// if (this.getOption('destroyOnDone')) {
-		// 	this.once('control:done', () => {
-		// 		this.destroy();
-		// 	});
-		// }
-		//this.editOptions = this.getOption('editOptions') || {};
+
 		this.valueOptions = this.getOption('valueOptions') || {};
 	},
 
@@ -370,8 +365,9 @@ export default Base => Base.extend({
 			handler = defHandler;
 			handlerArguments = [controlName, ...args];
 		} else {
-			
-			trigger.call(this, childEvent, ...args);
+			if (controlName != 'control') {
+				trigger.call(this, childEvent, ...args);
+			}
 			return;
 		}
 		
@@ -456,7 +452,7 @@ export default Base => Base.extend({
 			parentTrigger.call(parent, namedEvent, ...args);
 		}
 
-		//trigger.call(this, event, ...args);
+		trigger.call(this, event, ...args);
 	},
 	makeControlReady(){
 		let trigger = getTriggerMethod(this);
