@@ -91,19 +91,6 @@ const SelectControl = BaseSelectControl.extend({
 		}
 		return src;
 	},
-	/*childViewEvents:{
-		'toggle:select'(view, event){
-			if (!this.isMultiple() || !this.lastClickedModel || !event.shiftKey) {
-				this.lastClickedModel = view.model;
-				this.selector.toggle(view.model);
-			} else {
-				let lastclicked = this.lastClickedModel;
-				delete this.lastClickedModel;
-				this.selector.toggleRange(view.model, lastclicked);
-			}
-
-		}
-	}*/
 });
 
 defineControl('select', SelectControl);

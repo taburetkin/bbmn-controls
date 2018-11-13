@@ -296,7 +296,7 @@ export default Base => Base.extend({
 	},
 
 	_onControlValidateSuccess(value, options){
-		this.makeValid(value, _.extend(options, {noSet: true }));
+		this.makeValid(value, _.extend(options, { noSet: true }));
 		return Promise.resolve(value);
 	},
 	makeValid(value, options = {}){
@@ -456,7 +456,7 @@ export default Base => Base.extend({
 			parentTrigger.call(parent, namedEvent, ...args);
 		}
 
-		trigger.call(this, event, ...args);
+		//trigger.call(this, event, ...args);
 	},
 	makeControlReady(){
 		let trigger = getTriggerMethod(this);
