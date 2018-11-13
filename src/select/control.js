@@ -2,7 +2,7 @@ import _ from 'underscore';
 import { ControlView } from '../control-view';
 import { Selector, initSelectorMixin } from 'bbmn-components';
 import { isViewClass, convertString, toBool } from 'bbmn-utils';
-//import DefaultChildView from './childview';
+import DefaultChildView from './childview';
 //import fixChildView from './fix-childview';
 import { defineControl } from '../controls';
 //import { Collection } from 'bbmn-core';
@@ -22,6 +22,7 @@ const SelectControl = BaseSelectControl.extend({
 		// this._fixChildView(this.childView);
 		// this._fixChildOptions(this.childViewOptions);
 	},
+	childView: DefaultChildView,
 	getSelector(){
 		if(!this.selector) {
 			let selectorOptions = this._getSelectorOptions();
