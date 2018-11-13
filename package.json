@@ -10,7 +10,6 @@
   "main": "src/index.js",
   "module": "src/index.js",
   "jsnext": "src/index.js",
-  "browser": "lib/umd/index.js",
   "repository": "https://github.com/taburetkin/bbmn-controls.git",
   "author": "dimtabu <dima.taburetkin@gmail.com>",
   "license": "MIT",

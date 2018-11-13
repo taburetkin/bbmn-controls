@@ -1,13 +1,13 @@
 import _ from 'underscore';
 import { ControlView } from '../control-view';
-import { Selector } from 'bbmn-components';
+import { Selector, initSelectorMixin } from 'bbmn-components';
 import { isViewClass, convertString, toBool } from 'bbmn-utils';
-import DefaultChildView from './childview';
-import fixChildView from './fix-childview';
+//import DefaultChildView from './childview';
+//import fixChildView from './fix-childview';
 import { defineControl } from '../controls';
 //import { Collection } from 'bbmn-core';
-
-const SelectControl = ControlView.extend({
+const BaseSelectControl = initSelectorMixin(ControlView);
+const SelectControl = BaseSelectControl.extend({
 	className: 'regular-select',
 	renderCollection: true,
 	doneOnSelect: true,
@@ -16,27 +16,42 @@ const SelectControl = ControlView.extend({
 		(m,v) => v.isMultiple() ? 'multiple' : '',
 	],	
 	constructor(){
-		ControlView.apply(this, arguments);
-		this._initSelector();
+		BaseSelectControl.apply(this, arguments);
+		//this._initSelector();
 		this.collection = this.selector.getCollection();
-		this._fixChildView(this.childView);
-		this._fixChildOptions(this.childViewOptions);
+		// this._fixChildView(this.childView);
+		// this._fixChildOptions(this.childViewOptions);
 	},
-	_initSelector(){
+	getSelector(){
+		if(!this.selector) {
+			let selectorOptions = this._getSelectorOptions();
+			this.selector = new Selector(selectorOptions);
+		}
+		return this.selector;
+	},
+	/*_initSelector(){
 		let selectorOptions = this._getSelectorOptions();
 		this.selector = new Selector(selectorOptions);
 
 		this.listenTo(this.selector, 'change', changes => {
 			_.invoke(changes.selected, 'trigger', 'change');
 			_.invoke(changes.unselected, 'trigger', 'change');
-			let setPromise = this.setControlValue(this.selector.getValue());
+			// let setPromise = this.setControlValue(this.selector.getValue());
 
-			if (!this.isMultiple() && this.getOption('doneOnSelect')) {
-				setPromise.then(() => {
-					this.controlDone();
-				});
-			}			
+			// if (!this.isMultiple() && this.getOption('doneOnSelect')) {
+			// 	setPromise.then(() => {
+			// 		this.controlDone();
+			// 	});
+			// }			
 		});
+	},*/
+	onSelectorChange(){
+		let setPromise = this.setControlValue(this.selector.getValue());
+		if (!this.isMultiple() && this.getOption('doneOnSelect')) {
+			setPromise.then(() => {
+				this.controlDone();
+			});
+		}	
 	},
 	_getSelectorOptions(){
 		let source = this.getSource();
@@ -63,6 +78,7 @@ const SelectControl = ControlView.extend({
 	},
 
 
+/*
 	_fixChildView(childView){
 		if (!childView) {
 			this.childView = DefaultChildView;
@@ -89,7 +105,7 @@ const SelectControl = ControlView.extend({
 			this.childViewOptions = _.extend(childDefs, childViewOptions);
 		}
 	},
-
+*/
 
 	setFilter(filter){
 		this.selector.setSourceFilter(filter);
@@ -122,7 +138,7 @@ const SelectControl = ControlView.extend({
 		}
 		return src;
 	},
-	childViewEvents:{
+	/*childViewEvents:{
 		'toggle:select'(view, event){
 			if (!this.isMultiple() || !this.lastClickedModel || !event.shiftKey) {
 				this.lastClickedModel = view.model;
@@ -134,7 +150,7 @@ const SelectControl = ControlView.extend({
 			}
 
 		}
-	}
+	}*/
 });
 
 defineControl('select', SelectControl);
