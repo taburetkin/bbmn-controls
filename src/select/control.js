@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import { ControlView } from '../control-view';
 import { Selector, initSelectorMixin } from 'bbmn-components';
-import { isViewClass, convertString, toBool } from 'bbmn-utils';
+import { convertString, toBool } from 'bbmn-utils';
 import DefaultChildView from './childview';
 //import fixChildView from './fix-childview';
 import { defineControl } from '../controls';
@@ -17,10 +17,7 @@ const SelectControl = BaseSelectControl.extend({
 	],	
 	constructor(){
 		BaseSelectControl.apply(this, arguments);
-		//this._initSelector();
 		this.collection = this.selector.getCollection();
-		// this._fixChildView(this.childView);
-		// this._fixChildOptions(this.childViewOptions);
 	},
 	childView: DefaultChildView,
 	getSelector(){
@@ -30,22 +27,7 @@ const SelectControl = BaseSelectControl.extend({
 		}
 		return this.selector;
 	},
-	/*_initSelector(){
-		let selectorOptions = this._getSelectorOptions();
-		this.selector = new Selector(selectorOptions);
 
-		this.listenTo(this.selector, 'change', changes => {
-			_.invoke(changes.selected, 'trigger', 'change');
-			_.invoke(changes.unselected, 'trigger', 'change');
-			// let setPromise = this.setControlValue(this.selector.getValue());
-
-			// if (!this.isMultiple() && this.getOption('doneOnSelect')) {
-			// 	setPromise.then(() => {
-			// 		this.controlDone();
-			// 	});
-			// }			
-		});
-	},*/
 	onSelectorChange(){
 		let setPromise = this.setControlValue(this.selector.getValue());
 		if (!this.isMultiple() && this.getOption('doneOnSelect')) {
@@ -77,36 +59,6 @@ const SelectControl = BaseSelectControl.extend({
 
 		return opts;
 	},
-
-
-/*
-	_fixChildView(childView){
-		if (!childView) {
-			this.childView = DefaultChildView;
-		} else if(isViewClass(childView)){
-			this.childView = fixChildView(this, childView) || DefaultChildView;
-		} else {
-			childView = childView.bind(this);
-			this.childView = (...args) => {
-				let original = childView(...args);
-				return fixChildView(this, original) || DefaultChildView;
-			};
-		}
-	},
-	
-	_fixChildOptions(childViewOptions){
-		let childDefs = { selector: this.selector };
-		if(_.isFunction(childViewOptions)){
-			childViewOptions = childViewOptions.bind(this);
-			this.childViewOptions = (...args) => {
-				let original = childViewOptions(...args);
-				return _.extend( childDefs, original);
-			};
-		} else {
-			this.childViewOptions = _.extend(childDefs, childViewOptions);
-		}
-	},
-*/
 
 	setFilter(filter){
 		this.selector.setSourceFilter(filter);

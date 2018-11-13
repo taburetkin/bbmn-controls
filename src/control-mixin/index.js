@@ -296,12 +296,12 @@ export default Base => Base.extend({
 	},
 
 	_onControlValidateSuccess(value, options){
-		this.makeValid(value, options);
+		this.makeValid(value, _.extend(options, {noSet: true }));
 		return Promise.resolve(value);
 	},
-	makeValid(value, options){
+	makeValid(value, options = {}){
 		this._cntrl.isValid = true;
-		if(!this.isSameControlValue(value)){
+		if(!options.noSet && !this.isSameControlValue(value)){
 			this._setControlValue(value, { silent: true, skipValidation: true });
 		}
 		this._tryTriggerEvent('valid', [value], options);
