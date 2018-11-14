@@ -27,6 +27,9 @@ export default Base => {
 					// }
 					e.stopPropagation();
 					e.preventDefault();
+					e.originalEvent.AAButton = this.name;
+					e.originalEvent.AACid = this.cid;
+					
 					this.beforeClick().then(
 						data => {
 							this.triggerMethod('click', data, e, this);
