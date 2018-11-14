@@ -22,11 +22,11 @@ export default Base => {
 			}
 			return {
 				'click'(e) {
-					let stop = this.getOption('stopEvent');
-					if (stop) {
-						e.stopPropagation();
-						e.preventDefault();
-					}
+					// let stop = this.getOption('stopEvent');
+					// if (stop) {
+					// }
+					e.stopPropagation();
+					e.preventDefault();
 					this.beforeClick().then(
 						data => {
 							this.triggerMethod('click', data, e, this);
