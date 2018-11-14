@@ -11,8 +11,17 @@ export default mix(View).with(mixin).extend({
 			text: this.getText()
 		};
 	},
-	triggers: {
-		'click':{name:'toggle:select', stopPropagation: true}
+	triggers:{
+		'click':'toggle:select'
 	},
+	// events:{
+	// 	'click'(event){
+	// 		event.stopPropagation();
+	// 		this.triggerMethod('toggle:select', this, event);
+	// 	}
+	// },
+	// triggers: {
+	// 	'click':{name:'toggle:select', stopPropagation: true}
+	// },
 	getText: common.getText
 });
