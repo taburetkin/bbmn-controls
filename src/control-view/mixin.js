@@ -177,10 +177,18 @@ export default Base => {
 			return button;
 		},
 		settleButtonsListeners(buttonsView){
-			this.on('control:done',(value) => {
-				this._fulfill('resolve', value);
-				//this.triggerMethod('resolve', value);
+			this.on({
+				// 'control:valid': () => {
+				// 	buttonsView.enableButton('resolve');
+				// },
+				// 'control:invalid': () => {
+				// 	buttonsView.disableButton('resolve');
+				// },
+				'control:done': (value) => {
+					this._fulfill('resolve', value);
+				}
 			});
+
 			this.listenTo(buttonsView, {
 				'resolve'(){
 					let value = this.getControlValue();

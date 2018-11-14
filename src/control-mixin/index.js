@@ -443,7 +443,10 @@ export default Base => Base.extend({
 		let trigger = getTriggerMethod(this);
 		let parent = this.getParentControl();
 		
-		if (stopPropagation || !parent) { return; }
+		if (stopPropagation || !parent) { 
+			trigger.call(this, event, ...args);
+			return; 
+		}
 
 		if (_.isFunction(parent.handleChildControlEvent)) {
 			parent.handleChildControlEvent(name, controlName, ...args);
