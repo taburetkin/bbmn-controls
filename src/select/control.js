@@ -38,11 +38,12 @@ const SelectControl = BaseSelectControl.extend({
 	},
 	_getSelectorOptions(){
 		let source = this.getSource();
-		let extractValue;
+		
 		let type = this.valueOptions.type;
+		let extractValue = this.getOption('extractValue', { force: false});
 		if (type == 'boolean') {
 			source = _.map(source, (value, ind) => ({id: toBool(ind), value }));
-			extractValue = model => model.id;
+			!extractValue && (extractValue = model => model.id);
 		}
 		let value = this.getControlValue();
 		if (this.isMultiple() && type === 'enum' && _.isString(value)) {
