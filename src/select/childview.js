@@ -12,7 +12,7 @@ export default mix(View).with(mixin).extend({
 		};
 	},
 	triggers: {
-		'click':'toggle:select'
+		'click':{name:'toggle:select', stopPropagation: true}
 	},
 	getText: common.getText
 });
