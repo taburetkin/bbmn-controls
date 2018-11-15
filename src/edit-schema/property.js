@@ -55,7 +55,8 @@ export default Base => {
 		getControlView(){
 			let options = {
 				value: this.getControlValue(),
-				allValues: this.getParentControlValue(),				
+				allValues: this.getParentControlValue(),
+				model: this.model			
 			};
 			let editOptions = this.getSchema().getEdit(options);
 			return this.buildPropertyView(editOptions);
