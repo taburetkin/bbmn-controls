@@ -16,6 +16,9 @@ export default ControlView.extend({
 	},
 	getState(){
 		let val = this.getControlValue({ transform: toBool });
+		if (val == null) {
+			val = false;
+		}
 		return 'is-' + val.toString();
 	},
 	clickSelector: '',
