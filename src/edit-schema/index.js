@@ -9,7 +9,7 @@ const BaseEditProperty = mix(ControlView).with(editPropertyMixin);
 
 const EditProperty = BaseEditProperty.extend({
 	getEditControl(){
-		return getControl(this.getSchema());
+		return getControl(this.getSchema(), this.getSchemaOptions());
 	},
 	getEditControlOptions(editOptions){
 		return editOptions;

@@ -27,8 +27,8 @@ function getControlByName(name){
 	return controls[name];
 }
 
-function getControlBySchema(schema){
-	let value = schema.getType();
+function getControlBySchema(schema, opts){
+	let value = schema.getType(opts);
 	let control = getControlByName(value.control);
 	if (!control) {
 		control = getControlByName(value.type);		
@@ -39,14 +39,14 @@ function getControlBySchema(schema){
 	return control;
 }
 
-function getControl(arg){
+function getControl(arg, opts){
 	let control;
 	if(_.isString(arg)){
-		control = getControlByName(arg);
+		control = getControlByName(arg, opts);
 	} else if(arg instanceof PropertySchema) {
-		control = getControlBySchema(arg);
+		control = getControlBySchema(arg, opts);
 	} else {
-		control = guesControl(arg);
+		control = guesControl(arg, opts);
 	}
 	return control || controls.default;
 }

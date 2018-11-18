@@ -52,12 +52,16 @@ export default Base => {
 				}
 			}
 		},
-		getControlView(){
+		getSchemaOptions(opts){
 			let options = {
 				value: this.getControlValue(),
 				allValues: this.getParentControlValue(),
 				model: this.model			
 			};
+			return _.extend(options, opts);
+		},
+		getControlView(){
+			let options = this.getSchemaOptions();
 			let editOptions = this.getSchema().getEdit(options);
 			return this.buildPropertyView(editOptions);
 		},
