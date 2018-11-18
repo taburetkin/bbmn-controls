@@ -326,7 +326,7 @@ export default Base => Base.extend({
 
 		let parent = this.getParentControl();
 		if (!parent || !_.isFunction(parent.getControlValue)) {
-			return;
+			return this.getOption('allValues');
 		}
 		if (betterResult(parent, 'isControlWrapper', { args:[this]})) {
 			return parent.getParentControlValue(options);
