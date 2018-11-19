@@ -53,7 +53,10 @@ const TextAreaControl = Control.extend({
 	}
 });
 
+defineControl('textarea:simple', TextArea);
+defineControl('bigtext', TextAreaControl);
+defineControl('textarea', TextAreaControl);
+
 export default TextAreaControl;
 
-defineControl('bigtext', TextArea);
-defineControl('textarea', TextArea);
+
