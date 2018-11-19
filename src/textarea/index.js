@@ -31,7 +31,7 @@ const TextAreaControl = Control.extend({
 		let attributes = this.getOption('inputAttributes');
 
 		let options = {
-			valueOptions: this.getOption('valueOptions')
+			valueOptions: this.getOption('valueOptions'),			
 		};
 		if (attributes) {
 			options.attributes = attributes;			

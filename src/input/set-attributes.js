@@ -3,6 +3,16 @@ import getInputType from './get-input-type.js';
 
 import { getOption } from 'bbmn-utils';
 
+function fixAttributes(attrs, view, opts)
+{
+	let tagName = getOption(view, opts, 'tagName');
+	if(['select', 'textarea'].indexOf(tagName) > -1) {
+		delete attrs.value;
+		delete attrs.type;
+	}
+	return attrs;
+}
+
 export default function setInputAttributes(inputView, opts = {}) {
 
 	let attributes = getOption(inputView, opts, 'attributes');
@@ -18,6 +28,7 @@ export default function setInputAttributes(inputView, opts = {}) {
 		'required':'required',
 		'value':'value'
 	};
+
 	let restrictions = {};
 	_(restrictionKeys).each((key2, key) => {
 		let value = check[key];
@@ -25,11 +36,13 @@ export default function setInputAttributes(inputView, opts = {}) {
 			restrictions[key2] = value;
 	});
 
-	inputView.attributes = _.extend({
+	let newattributes = _.extend({
 		value: inputView.value,
 		type: getInputType(inputView, opts),
 	}, restrictions, attributes);
 	
+	inputView.attributes = fixAttributes(newattributes, inputView, opts);
+
 	if(opts.attributes)
 		delete opts.attributes;
 }
