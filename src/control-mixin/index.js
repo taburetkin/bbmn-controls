@@ -359,7 +359,6 @@ export default Base => Base.extend({
 		if (_.isFunction(handler)) {
 			handlerArguments = args;
 			handlerName = childEvent;
-			//handler.apply(this, args);
 		} else if(_.isFunction(defHandler)){
 			handlerName = '_default:' + event;
 			handler = defHandler;
@@ -382,7 +381,7 @@ export default Base => Base.extend({
 		let handlerResult = handler.apply(this, handlerArguments);
 		if(handlerResult && handlerResult.then) {
 			handlerResult.then(() => {
-				trigger.call(this, childEvent, ...args);
+				controlName != 'control' && trigger.call(this, childEvent, ...args);
 			});
 		}
 		
