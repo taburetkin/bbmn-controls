@@ -22,7 +22,8 @@ export default Base => {
 			}
 
 			this.buildRestrictions();
-			let value = this.getOption('value') || '';			
+			let value = this.getOption('value');
+			value == null && (value = '');
 			this.el.value = value;
 			//this.setControlValue(value, { trigger: false, silent: true });
 		},
