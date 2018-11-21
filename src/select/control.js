@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import { ControlView } from '../control-view';
 import { Selector, initSelectorMixin } from 'bbmn-components';
-import { convertString, toBool } from 'bbmn-utils';
+import { isCollectionClass, convertString, toBool } from 'bbmn-utils';
 import DefaultChildView from './childview';
 //import fixChildView from './fix-childview';
 import { defineControl } from '../controls';

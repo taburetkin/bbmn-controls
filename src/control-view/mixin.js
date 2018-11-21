@@ -152,7 +152,7 @@ export default Base => {
 			this._buttonsView = view;
 			this.settleButtonsListeners(view);
 
-			return view;
+			return [view, Infinity];
 		},
 		buildButtonsOptions(){
 			let btns = this.getOption('buttons');
