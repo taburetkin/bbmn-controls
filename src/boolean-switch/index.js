@@ -34,6 +34,10 @@ export default ControlView.extend({
 		this.setControlValue(!val);
 	},
 	refreshStateLabel(){
+		if (!this.model) {
+			this.refreshCssClass();
+		}
+
 		let labels = this.getOption('labels');
 		if(!_.isObject(labels)){
 			return;
@@ -44,9 +48,7 @@ export default ControlView.extend({
 			return;
 		}
 		this.ui.label.html(label);
-		if (!this.model) {
-			this.refreshCssClass();
-		}
+
 	},
 	prepareValueBeforeSet(value){
 		return toBool(value);
