@@ -44,6 +44,9 @@ export default ControlView.extend({
 			return;
 		}
 		this.ui.label.html(label);
+		if (!this.model) {
+			this.refreshCssClass();
+		}
 	},
 	prepareValueBeforeSet(value){
 		return toBool(value);
