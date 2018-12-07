@@ -22,7 +22,7 @@ export default Base => {
 			let html = [];
 			let icon = '<i></i>';
 			
-			if (this.getOption('letfIcon')) {
+			if (this.getOption('leftIcon')) {
 				html.push(icon);
 			}
 			
