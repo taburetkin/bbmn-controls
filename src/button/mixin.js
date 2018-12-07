@@ -9,13 +9,33 @@ export default Base => {
 
 		triggerNameEvent: true,
 		stopEvent: true,
-
+		leftIcon: true,
+		rightIcon: true,
+		forceText: true,
 		constructor(options){
 			Base.apply(this, arguments);
 			this.mergeOptions(options, ['name']);
 		},
 		tagName:'button',
-		template: _.template('<i></i><span><%= text %></span><i></i>'),
+		//template: _.template('<i></i><span><%= text %></span><i></i>'),
+		getTemplate(){
+			let html = [];
+			let icon = '<i></i>';
+			
+			if (this.getOption('letfIcon')) {
+				html.push(icon);
+			}
+			
+			let forceText = this.getOption('forceText');
+			if (this.getText() || forceText) {
+				html.push('<span><%= text %></span>');
+			}
+
+			if (this.getOption('rightIcon')) {
+				html.push(icon);
+			}
+			return _.template(html.join(''));
+		},
 		events(){
 			if(this.getOption('noevent')){
 				return;
@@ -52,9 +72,12 @@ export default Base => {
 				return Promise.resolve(result);
 			}
 		},
+		getText(){
+			return this.getOption('text');
+		},
 		templateContext(){
 			return {
-				text: this.getOption('text')
+				text: this.getText()
 			};
 		},
 		disable(){
