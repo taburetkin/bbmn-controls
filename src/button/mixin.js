@@ -12,10 +12,12 @@ export default Base => {
 		leftIcon: true,
 		rightIcon: true,
 		forceText: true,
+
 		constructor(options){
 			Base.apply(this, arguments);
 			this.mergeOptions(options, ['name']);
 		},
+
 		tagName:'button',
 		//template: _.template('<i></i><span><%= text %></span><i></i>'),
 		getTemplate(){
@@ -47,11 +49,22 @@ export default Base => {
 						e.stopPropagation();
 						e.preventDefault();
 					}
+
+					let before = this.beforeClick();
+					if (before && before.then) {
+						before.then(
+							data => this.triggerClick(data, event),
+							error => this.triggerError(error, event)
+						);
+					} else {
+						this.triggerClick(before, event);
+					}
+					/*
 					this.beforeClick().then(
 						data => {
-							this.triggerMethod('click', data, e, this);
+							this.triggerMethod('click', data, e, this.name, this);
 							if (this.name) {
-								this.triggerMethod('click:'+this.name, data, e, this);
+								this.triggerMethod('click:' + this.name, data, e, this);
 							}
 						},
 						error => {
@@ -61,6 +74,7 @@ export default Base => {
 							}
 						}
 					);
+					*/
 				}
 			};
 		},
@@ -70,6 +84,28 @@ export default Base => {
 				return result;
 			} else {
 				return Promise.resolve(result);
+			}
+		},
+		triggerClick(data, event){
+			let options = {
+				event,
+				name: this.name,
+				buttonView: this,
+			};
+			this.triggerMethod('click', data, options);
+			if (this.name) {
+				this.triggerMethod('click:' + this.name, data, options);
+			}
+		},
+		triggerError(error, event){
+			let options = {
+				event,
+				name: this.name,
+				buttonView: this,
+			};			
+			this.triggerMethod('click:fail', error, options);
+			if (this.name) {
+				this.triggerMethod('click:'+this.name+':fail', error, options);
 			}
 		},
 		getText(){
