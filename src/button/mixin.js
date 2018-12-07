@@ -12,7 +12,7 @@ export default Base => {
 		leftIcon: true,
 		rightIcon: true,
 		forceText: true,
-
+		beforeClickIsAlwaysPromise: true,
 		constructor(options){
 			Base.apply(this, arguments);
 			this.mergeOptions(options, ['name']);
@@ -83,7 +83,11 @@ export default Base => {
 			if(result && _.isFunction(result.then) ) {
 				return result;
 			} else {
-				return Promise.resolve(result);
+				if (this.getOption('beforeClickIsAlwaysPromise')) {
+					return Promise.resolve(result);
+				} else {
+					return result;
+				}
 			}
 		},
 		triggerClick(data, event){
