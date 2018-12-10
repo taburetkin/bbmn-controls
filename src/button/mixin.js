@@ -19,7 +19,6 @@ export default Base => {
 		},
 
 		tagName:'button',
-		//template: _.template('<i></i><span><%= text %></span><i></i>'),
 		getTemplate(){
 			let html = [];
 			let icon = '<i></i>';
@@ -59,22 +58,6 @@ export default Base => {
 					} else {
 						this.triggerClick(before, event);
 					}
-					/*
-					this.beforeClick().then(
-						data => {
-							this.triggerMethod('click', data, e, this.name, this);
-							if (this.name) {
-								this.triggerMethod('click:' + this.name, data, e, this);
-							}
-						},
-						error => {
-							this.triggerMethod('click:fail', error, this.name, e, this);
-							if (this.name) {
-								this.triggerMethod('click:'+this.name+':fail', error, e, this);
-							}
-						}
-					);
-					*/
 				}
 			};
 		},

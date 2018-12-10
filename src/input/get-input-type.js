@@ -5,6 +5,11 @@ const _getOption = (context, key, checkAlso) => getOption(context, key, { args:[
 export default function getInputType(inputView, opts = {}){
 	
 	let valueType = _getOption(inputView, 'valueType', opts);
+	
+	if(opts.valueOptions && opts.valueOptions.type) {
+		valueType = opts.valueOptions.type;
+	}
+
 	if (valueType == null) {
 		let value = inputView.getControlValue();
 		if ( value == null) {
