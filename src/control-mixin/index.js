@@ -37,6 +37,9 @@ export default Base => Base.extend({
 
 
 	_onControlDestroy(){
+		if (!this._isDestroing) {
+			this._isDestroing = true;
+		}
 		let parent = this.getParentControl();
 		if (parent && _.isFunction(parent._removeChildControl)) {
 			parent._removeChildControl(this);
@@ -63,7 +66,8 @@ export default Base => Base.extend({
 		!found && children.push(control);
 	},
 	_removeParentControl(){
-		delete this._cntrl.parent;
+		if(_.isObject(this._cntrl))
+			delete this._cntrl.parent;
 	},
 
 
@@ -89,6 +93,7 @@ export default Base => Base.extend({
 		this.setParentControl(parent);
 	},
 	setParentControl(parent){
+		
 		this._cntrl.parent = parent;
 		if (parent && _.isFunction(parent._addChildControl)) {
 			parent._addChildControl(this);
