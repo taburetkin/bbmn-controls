@@ -93,7 +93,7 @@ export default Base => Base.extend({
 		this.setParentControl(parent);
 	},
 	setParentControl(parent){
-		
+
 		this._cntrl.parent = parent;
 		if (parent && _.isFunction(parent._addChildControl)) {
 			parent._addChildControl(this);
@@ -392,31 +392,47 @@ export default Base => Base.extend({
 		}
 		
 	},
-
+	_getEventContext(controlName){
+		let isControlWraper = this.getOption('isControlWrapper');
+		//let parent = this.getParentControl();
+		let control = this;
+		if (isControlWraper) {
+			if (parent) {
+				//control = parent;
+			} else {
+				controlName = undefined;
+			}
+		}
+		return { control, controlName, isControlWraper };
+	},
 	defaultChildControlEvents:{
 		'change'(controlName, value){
-			let isControlWraper = this.getOption('isControlWrapper');
-			isControlWraper && (controlName = undefined);
-			this.setControlValue(value, { key: controlName, skipChildValidate: controlName });
+			//isControlWraper && (controlName = undefined);
+			let cnt = this._getEventContext(controlName);
+			cnt.control.setControlValue(value, { key: cnt.controlName, skipChildValidate: cnt.controlName });
 		},
 		'done'(controlName, value){
-			let isControlWraper = this.getOption('isControlWrapper');
-			isControlWraper && (controlName = undefined);
-			let setPromise = this.setControlValue(value, { key: controlName, skipChildValidate: controlName });
-			if (isControlWraper) {
+			let cnt = this._getEventContext(controlName);
+
+			// let isControlWraper = this.getOption('isControlWrapper');
+			// isControlWraper && (controlName = undefined);
+			let setPromise = cnt.control.setControlValue(value, { key: cnt.controlName, skipChildValidate: cnt.controlName });
+			if (cnt.isControlWraper) {
 				setPromise = setPromise.then(() => {
-					this.controlDone();
+					cnt.control.controlDone();
 					return Promise.resolve();
 				});
 			}
 			return setPromise;
 		},
 		'invalid'(controlName, value, error){
-			if(this.getOption('isControlWrapper')){
-				controlName = undefined;
-			}
-			this.setControlValue(value, { key: controlName, silent: true, notValidated: true });
-			this.makeInvalid(error, this.getControlValue({ notValidated: true }));
+			let cnt = this._getEventContext(controlName);
+
+			// if(this.getOption('isControlWrapper')){
+			// 	controlName = undefined;
+			// }
+			cnt.control.setControlValue(value, { key: cnt.controlName, silent: true, notValidated: true });
+			cnt.control.makeInvalid(error, cnt.control.getControlValue({ notValidated: true }));
 		},
 	},
 
