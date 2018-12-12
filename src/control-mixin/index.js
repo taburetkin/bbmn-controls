@@ -212,7 +212,7 @@ export default Base => Base.extend({
 	_validatePromise(value, options){
 		
 		const { skipChildValidate } = options;
-		const isControlWrapper = betterResult(this, 'isControlWrapper', { args:[this]});
+		const isControlWrapper = this._isControlWrapper();
 
 		
 		return new Promise((resolve, reject) => {
@@ -324,9 +324,16 @@ export default Base => Base.extend({
 
 
 
-
+	_isControlWrapper()
+	{
+		return betterResult(this.options, 'isControlWrapper', { context: this, checkAlso: this, args: [this]});
+	},
 	getParentControl() {
+		if (!this.hasParentControl()) return;
 		return this._cntrl.parent;
+	},
+	hasParentControl(){
+		return this._cntrl && !!this._cntrl.parent;
 	},
 	getParentControlValue(options) {
 
@@ -334,7 +341,7 @@ export default Base => Base.extend({
 		if (!parent || !_.isFunction(parent.getControlValue)) {
 			return this.getOption('allValues');
 		}
-		if (betterResult(parent, 'isControlWrapper', { args:[this]})) {
+		if (this._isControlWrapper()) {
 			return parent.getParentControlValue(options);
 		} else {
 			return parent.getControlValue(options);
@@ -393,17 +400,16 @@ export default Base => Base.extend({
 		
 	},
 	_getEventContext(controlName){
-		let isControlWraper = this.getOption('isControlWrapper');
-		//let parent = this.getParentControl();
+		let isControlWraper = this._isControlWrapper();
+		let parent = this.getParentControl();
 		let control = this;
-		if (isControlWraper) {
-			if (parent) {
-				//control = parent;
-			} else {
-				controlName = undefined;
-			}
+		let propagateParanet = this.getOption('propagateParanet') === true;
+		if (isControlWraper && !propagateParanet) {
+			controlName = undefined;
+		} else if (isControlWraper && propagateParanet && parent) {
+			control = parent;
 		}
-		return { control, controlName, isControlWraper };
+		return { control, controlName, isControlWraper, parent };
 	},
 	defaultChildControlEvents:{
 		'change'(controlName, value){
@@ -462,6 +468,7 @@ export default Base => Base.extend({
 		let namedEvent = controlName + ':' + name;
 
 		let trigger = getTriggerMethod(this);
+
 		let parent = this.getParentControl();
 		
 		if (stopPropagation || !parent) { 

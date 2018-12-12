@@ -67,7 +67,7 @@ export default Base => {
 
 		getCustoms(){
 			let customs = [];
-			if (this.getOption('isControlWrapper')) {
+			if (this._isControlWrapper()) {
 				customs.push(this.getControlView());
 			} else {
 				customs.push(...this._customs);
