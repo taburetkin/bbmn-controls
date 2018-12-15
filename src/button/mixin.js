@@ -41,8 +41,8 @@ export default Base => {
 			if(this.getOption('noevent')){
 				return;
 			}
-			return {
-				'click'(e) {
+			let events = {
+				click(e) {
 					let stop = this.getOption('stopEvent');
 					if (stop) {
 						e.stopPropagation();
@@ -52,14 +52,15 @@ export default Base => {
 					let before = this.beforeClick();
 					if (before && before.then) {
 						before.then(
-							data => this.triggerClick(data, event),
-							error => this.triggerError(error, event)
+							data => this.triggerClick(data, e),
+							error => this.triggerError(error, e)
 						);
 					} else {
-						this.triggerClick(before, event);
+						this.triggerClick(before, e);
 					}
 				}
 			};
+			return events;
 		},
 		beforeClick(){
 			let result = this.triggerMethod('before:click');
