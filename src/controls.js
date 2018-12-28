@@ -30,11 +30,14 @@ function getControlByName(name){
 function getControlBySchema(schema, opts){
 	let value = schema.getType(opts);
 	let control = getControlByName(value.control);
-	if (!control) {
-		control = getControlByName(value.type);		
-	}
 	if (!control && !!value.sourceValues) {
 		control = getControlByName('select');
+	}
+	if (!control && value.modelType == 'range') {
+		control = getControlByName('range:' + value.type);
+		if(!control){
+			control = getControlByName('range');
+		}
 	}
 	return control;
 }
