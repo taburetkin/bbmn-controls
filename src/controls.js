@@ -27,17 +27,20 @@ function getControlByName(name){
 	return controls[name];
 }
 
-function getControlBySchema(schema, opts){
+function getControlBySchema(schema, opts = {}){
 	let value = schema.getType(opts);
 	let control = getControlByName(value.control);
-	if (!control && !!value.sourceValues) {
-		control = getControlByName('select');
-	}
-	if (!control && value.modelType == 'range') {
+	if (!control && value.modelType == 'range' && !opts.noRange) {
 		control = getControlByName('range:' + value.type);
 		if(!control){
 			control = getControlByName('range');
 		}
+	}
+	if (!control && !!value.sourceValues) {
+		control = getControlByName('select');
+	}
+	if (!control) {
+		control = getControlByName(value.type);
 	}
 	return control;
 }
