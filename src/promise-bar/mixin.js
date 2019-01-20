@@ -81,17 +81,24 @@ export default Base => {
 			options = _.extend(defs, options);
 			return options;
 		},
+		_disableWithEnableCallback(name){
+			this.disableButton(name);
+			return () => this.enableButton(name);
+		},
 		childViewEvents:{
 			'click:resolve'(data){
-				this.triggerMethod('resolve', data);
+				let cb = this._disableWithEnableCallback('resolve');
+				this.triggerMethod('resolve', data, cb);
 			},
 			'click:rejectSoft'(value){ 
-				this.triggerMethod('reject', { type: 'soft', value });
-				this.triggerMethod('reject:soft', value);
+				let cb = this._disableWithEnableCallback('rejectSoft');
+				this.triggerMethod('reject', { type: 'soft', value }, cb);
+				this.triggerMethod('reject:soft', value, cb);
 			},
 			'click:rejectHard'(value){ 
-				this.triggerMethod('reject', { type: 'hard', value });
-				this.triggerMethod('reject:hard', value);
+				let cb = this._disableWithEnableCallback('rejectHard');
+				this.triggerMethod('reject', { type: 'hard', value }, cb);
+				this.triggerMethod('reject:hard', value, cb);
 			},
 			'click:fail'(error, name, event, view) {
 				this.triggerMethod('click:fail', error, name, event, view);

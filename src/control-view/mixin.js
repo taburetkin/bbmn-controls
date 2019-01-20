@@ -184,27 +184,27 @@ export default Base => {
 				// 'control:invalid': () => {
 				// 	buttonsView.disableButton('resolve');
 				// },
-				'control:done': (value) => {
-					this._fulfill('resolve', value);
+				'control:done': (value, cb) => {
+					this._fulfill('resolve', value, cb);
 				}
 			});
 
 			this.listenTo(buttonsView, {
-				'resolve'(){
+				'resolve'(data, cb){
 					let value = this.getControlValue();
-					this._fulfill('resolve', value);
+					this._fulfill('resolve', value, cb);
 					//this.triggerMethod('resolve', this.getControlValue());
 				},
-				'reject'(){
-					this._fulfill('reject');
+				'reject'(data, cb){
+					this._fulfill('reject', data, cb);
 					//this.triggerMethod('reject');
 				},
-				'reject:soft'(){
-					this._fulfill('reject:soft');
+				'reject:soft'(data, cb){
+					this._fulfill('reject:soft', data, cb);
 					//this.triggerMethod('reject:soft');
 				},
-				'reject:hard'(){
-					this._fulfill('reject:hard');
+				'reject:hard'(data, cb){
+					this._fulfill('reject:hard', data, cb);
 					//this.triggerMethod('reject:hard');
 				},
 			});
